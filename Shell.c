@@ -10,6 +10,10 @@
 #define SHELL_TOK_DELIM " \t\r\n\a"
 #define MAXLIST 100
 
+void signalhand(int signum){
+    printf("Senal captada\n");
+}
+
 int shell_execute(char ** args){
     pid_t pid;
     int status;
@@ -47,6 +51,21 @@ int shell_execute(char ** args){
         printf(" > chau    Sale del Shell\n\n");
         return 1;
     }
+    else if(strcmp(args[0], "signal") == 0){
+        int sig = atoi(args[1]);
+        int PID = atoi(args[2]);
+        //signal(SIGKILL, signalhand);
+        if(sig == -9){
+            kill(PID, SIGKILL);
+        }
+        else if(sig == -18){
+            kill(PID, SIGSTOP);
+        }
+        else if(sig == -19){
+            kill(PID, SIGCONT);
+        }
+        return 1;
+        }
     if(strcmp(args[position-1], "&") == 0){
         printf("Entro el proceso en BackGround \n");
         args[position-1] = NULL;
