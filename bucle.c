@@ -11,7 +11,7 @@ void bucle(){
 
 int main(){
     while(1){
-        bucle;
+        bucle();
         sleep(1);
     }
 }
